@@ -17,7 +17,7 @@ import dagger.Reusable;
  * Created by caisw on 2017/10/31.
  */
 
-@Module(subcomponents = {MainComponent.class, RepoListComponent.class})
+@Module(subcomponents = {MainComponent.class})
 public class AppModule {
 
     @Provides

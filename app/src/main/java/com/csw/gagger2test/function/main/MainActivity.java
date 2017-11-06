@@ -1,48 +1,66 @@
 package com.csw.gagger2test.function.main;
 
-import android.content.Intent;
-import android.widget.Toast;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 
 import com.csw.gagger2test.R;
-import com.csw.gagger2test.app.MyApplication;
-import com.csw.gagger2test.di.annotation.qualifier.LongToast;
-import com.csw.gagger2test.di.component.AppComponent;
+import com.csw.gagger2test.adapter.RepoListFragmentAdapter;
+import com.csw.gagger2test.di.component.RepoListComponent;
 import com.csw.gagger2test.function.base.BaseActivity;
-import com.csw.gagger2test.function.repo_list.RepoListActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.OnClick;
+import butterknife.BindView;
 
 /**
  * 主界面
  * Created by caisw on 2017/10/31.
  */
 
-public class MainActivity extends BaseActivity {
-    @Inject
-    @LongToast
-    Toast toast;
+public class MainActivity extends BaseActivity implements MainContract.View {
+
+    @BindView(R.id.tl_user_list)
+    TabLayout tl_user_list;
+    @BindView(R.id.vp_user_repo_list)
+    ViewPager vp_user_repo_list;
 
     @Inject
-    MyApplication myApplication;
-
-    @Override
-    protected void setupActivityComponent(AppComponent appComponent) {
-        appComponent.getMainComponentBuilder()
-                .build()
-                .inject(this);
-        toast.setText(myApplication.getAppComponent().getMyApplication().getAppComponent().getMyApplication().toString());
-        toast.show();
-    }
+    RepoListComponent.Builder repoListComponentBuilder;
+    @Inject
+    MainContract.Presenter presenter;
+    private RepoListFragmentAdapter userListAdapter;
 
     @Override
     protected int getContentViewId() {
         return R.layout.activity_main;
     }
 
-    @OnClick(R.id.showButton)
-    public void openRepoListActivity() {
-        startActivity(new Intent(this, RepoListActivity.class));
+    @Override
+    protected void initView() {
+        super.initView();
+        getAppComponent().getMainComponentBuilder()
+                .setView(this)
+                .build()
+                .inject(this);
+        vp_user_repo_list.setAdapter(userListAdapter = new RepoListFragmentAdapter(getSupportFragmentManager(), null, repoListComponentBuilder));
+        tl_user_list.setupWithViewPager(vp_user_repo_list);
+    }
+
+    @Override
+    protected void getData() {
+        super.getData();
+        presenter.start();
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public void updateUserList(List<String> strings) {
+        userListAdapter.setNewData(strings);
     }
 }

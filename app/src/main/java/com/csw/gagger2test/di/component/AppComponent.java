@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.csw.gagger2test.app.MyApplication;
 import com.csw.gagger2test.di.module.AppModule;
-import com.csw.gagger2test.function.repo_list.RepoListActivity;
 import com.csw.gagger2test.di.module.GithubApiModule;
 
 import dagger.BindsInstance;
@@ -19,9 +18,9 @@ public interface AppComponent {
 
     MyApplication getMyApplication();
 
-    RepoListComponent.Builder getRepoListComponentBuilder();
-
     MainComponent.Builder getMainComponentBuilder();
+
+    SplashComponent.Builder getSplashComponentBuilder();
 
     @Component.Builder
     interface Builder {
