@@ -38,6 +38,7 @@ public class RepoListFragment extends BaseFragment implements RepoListContract.V
     @Inject
     @LongToast
     Toast toast;
+    private String userName;
 
     @Override
     protected int getContentViewId() {
@@ -61,16 +62,29 @@ public class RepoListFragment extends BaseFragment implements RepoListContract.V
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        lazyLoadData();
+    }
+
+
+    @Override
     protected void getData() {
         super.getData();
-        if (getArguments() != null) {
-            String userName = getArguments().getString("userName", null);
-            if (userName == null) {
-                throw new IllegalArgumentException("Arguments-->userName is not null");
+        lazyLoadData();
+    }
+
+    private void lazyLoadData() {
+        if (getUserVisibleHint() && isVisible()) {
+            if (getArguments() != null) {
+                userName = getArguments().getString("userName", null);
+                if (userName == null) {
+                    throw new IllegalArgumentException("Arguments-->userName is not null");
+                }
+                presenter.setUserName(userName);
             }
-            presenter.setUserName(userName);
+            presenter.start();
         }
-        presenter.start();
     }
 
     @Override
@@ -104,6 +118,10 @@ public class RepoListFragment extends BaseFragment implements RepoListContract.V
 
     @Override
     public void updateList(ArrayList<Repo> repos) {
+        if (userName != null) {
+            toast.setText(userName + "数据返回-->repoList size = " + (repos == null ? 0 : repos.size()));
+            toast.show();
+        }
         if (getView() != null) {
             repoAdapter.setNewData(repos);
         }
