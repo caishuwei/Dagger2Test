@@ -24,7 +24,6 @@ public class MyApplication extends Application {
     private void setupComponent() {
         appComponent = DaggerAppComponent.builder()
                 .myApplication(this)
-                .application(this)
                 .build();
     }
 

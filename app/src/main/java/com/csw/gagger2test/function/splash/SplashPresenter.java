@@ -3,6 +3,8 @@ package com.csw.gagger2test.function.splash;
 import android.os.Handler;
 import android.os.Looper;
 
+import javax.inject.Inject;
+
 /**
  * 启动切面
  * Created by caisw on 2017/11/6.
@@ -16,6 +18,7 @@ public class SplashPresenter implements SplashContract.Presenter {
     private long startTime;
     private boolean end = false;
 
+    @Inject
     public SplashPresenter(SplashContract.View view) {
         this.view = view;
         view.setPresenter(this);

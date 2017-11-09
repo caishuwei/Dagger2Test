@@ -23,13 +23,12 @@ public interface AppComponent {
 
     SplashComponent.Builder getSplashComponentBuilder();
 
+    RepoListComponent.Builder getRepoListComponentBuilder();
+
     @Component.Builder
     interface Builder {
         @BindsInstance
         Builder myApplication(MyApplication application);
-
-        @BindsInstance
-        Builder application(Application application);
 
         AppComponent build();
     }

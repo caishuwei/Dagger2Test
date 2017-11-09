@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import com.csw.gagger2test.R;
 import com.csw.gagger2test.adapter.RepoAdapter;
+import com.csw.gagger2test.app.MyApplication;
 import com.csw.gagger2test.di.annotation.qualifier.LongToast;
-import com.csw.gagger2test.di.component.RepoListComponent;
 import com.csw.gagger2test.entities.Repo;
 import com.csw.gagger2test.function.base.BaseFragment;
 
@@ -39,6 +39,10 @@ public class RepoListFragment extends BaseFragment implements RepoListContract.V
     @LongToast
     Toast toast;
     private String userName;
+
+    public RepoListFragment() {
+        MyApplication.getInstance().getAppComponent().getRepoListComponentBuilder().setView(this).build().inject(this);
+    }
 
     @Override
     protected int getContentViewId() {
@@ -83,7 +87,7 @@ public class RepoListFragment extends BaseFragment implements RepoListContract.V
                 }
                 presenter.setUserName(userName);
             }
-            presenter.start();
+            presenter.loadData();
         }
     }
 
@@ -135,10 +139,6 @@ public class RepoListFragment extends BaseFragment implements RepoListContract.V
             toast.setText("请求失败");
         }
         toast.show();
-    }
-
-    public void beginInject(RepoListComponent.Builder builder) {
-        builder.setView(this).build().inject(this);
     }
 
     public static RepoListFragment newInstance(String userName) {

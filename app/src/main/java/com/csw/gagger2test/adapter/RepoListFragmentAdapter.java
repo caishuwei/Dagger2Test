@@ -16,18 +16,15 @@ import java.util.List;
 public class RepoListFragmentAdapter extends FragmentPagerAdapter {
 
     private List<String> strings;
-    private RepoListComponent.Builder repoListComponentBuilder;
 
-    public RepoListFragmentAdapter(FragmentManager fm, List<String> strings, RepoListComponent.Builder repoListComponentBuilder) {
+    public RepoListFragmentAdapter(FragmentManager fm, List<String> strings) {
         super(fm);
         this.strings = strings;
-        this.repoListComponentBuilder = repoListComponentBuilder;
     }
 
     @Override
     public Fragment getItem(int position) {
         RepoListFragment fragment = RepoListFragment.newInstance(strings.get(position));
-        fragment.beginInject(repoListComponentBuilder);
         return fragment;
     }
 

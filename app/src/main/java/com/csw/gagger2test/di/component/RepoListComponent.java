@@ -2,7 +2,7 @@ package com.csw.gagger2test.di.component;
 
 import com.csw.gagger2test.function.repo_list.RepoListContract;
 import com.csw.gagger2test.function.repo_list.RepoListFragment;
-import com.csw.gagger2test.function.repo_list.RepoListModule;
+import com.csw.gagger2test.di.module.RepoListModule;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;

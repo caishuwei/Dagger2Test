@@ -2,7 +2,7 @@ package com.csw.gagger2test.di.component;
 
 import com.csw.gagger2test.function.main.MainActivity;
 import com.csw.gagger2test.function.main.MainContract;
-import com.csw.gagger2test.function.main.MainModule;
+import com.csw.gagger2test.di.module.MainModule;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
@@ -15,8 +15,6 @@ import dagger.Subcomponent;
 public interface MainComponent {
 
     void inject(MainActivity mainActivity);
-
-    RepoListComponent.Builder getRepoListComponentBuilder();
 
     @Subcomponent.Builder
     interface Builder {

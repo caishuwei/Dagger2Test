@@ -26,6 +26,9 @@ public interface RepoListContract {
 
     public interface Presenter extends BasePresenter {
         void setUserName(String userName);
+
+        void loadData();
+
         void refreshData();
     }
 

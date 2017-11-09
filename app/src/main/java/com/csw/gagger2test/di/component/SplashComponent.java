@@ -2,8 +2,7 @@ package com.csw.gagger2test.di.component;
 
 import com.csw.gagger2test.function.splash.SplashActivity;
 import com.csw.gagger2test.function.splash.SplashContract;
-import com.csw.gagger2test.function.splash.SplashModule;
-import com.csw.gagger2test.function.splash.SplashPresenter;
+import com.csw.gagger2test.di.module.SplashModule;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;

@@ -27,8 +27,6 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     ViewPager vp_user_repo_list;
 
     @Inject
-    RepoListComponent.Builder repoListComponentBuilder;
-    @Inject
     MainContract.Presenter presenter;
     private RepoListFragmentAdapter userListAdapter;
 
@@ -44,7 +42,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                 .setView(this)
                 .build()
                 .inject(this);
-        vp_user_repo_list.setAdapter(userListAdapter = new RepoListFragmentAdapter(getSupportFragmentManager(), null, repoListComponentBuilder));
+        vp_user_repo_list.setAdapter(userListAdapter = new RepoListFragmentAdapter(getSupportFragmentManager(), null));
         tl_user_list.setupWithViewPager(vp_user_repo_list);
     }
 

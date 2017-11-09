@@ -1,12 +1,12 @@
 package com.csw.gagger2test.di.module;
 
 import android.app.Application;
-import android.support.design.widget.Snackbar;
+import android.content.Context;
 import android.widget.Toast;
 
+import com.csw.gagger2test.app.MyApplication;
+import com.csw.gagger2test.di.annotation.qualifier.App;
 import com.csw.gagger2test.di.annotation.qualifier.LongToast;
-import com.csw.gagger2test.di.component.MainComponent;
-import com.csw.gagger2test.di.component.RepoListComponent;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,6 +19,20 @@ import dagger.Reusable;
 
 @Module
 public class AppModule {
+    @Provides
+    public Application provide(MyApplication myApplication) {
+        return myApplication;
+    }
+
+    /**
+     * 加App注解用于区分与Activity Service等Context
+     */
+    @Provides
+    @App
+    public Context provideAppContext(Application application) {
+        return application;
+    }
+
 
     @Provides
     @Reusable
